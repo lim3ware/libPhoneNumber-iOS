@@ -3506,7 +3506,7 @@ static NSDictionary *DIGIT_MAPPINGS;
     defaultRegion = [self countryCodeByCarrier];
 #endif
     if ([UNKNOWN_REGION_ isEqualToString:defaultRegion]) {
-        //TODO: if defaultRegion is unknown get defaultRegion other way
+        defaultRegion = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
     }
     
     return [self parse:numberToParse defaultRegion:defaultRegion error:error];
