@@ -11,9 +11,10 @@
 #import "NBPhoneMetaData.h"
 #import "math.h"
 
+#if !TARGET_OS_MAC
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
-
+#endif
 
 #pragma mark - Static Int variables -
 const static NSUInteger NANPA_COUNTRY_CODE_ = 1;
@@ -3513,6 +3514,9 @@ static NSDictionary *DIGIT_MAPPINGS;
 
 - (NSString *)countryCodeByCarrier
 {
+#if TARGET_OS_MAC
+    return UNKNOWN_REGION_;
+#else
     CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     NSString *isoCode = [[networkInfo subscriberCellularProvider] isoCountryCode];
     
@@ -3521,6 +3525,7 @@ static NSDictionary *DIGIT_MAPPINGS;
 	}
     
     return isoCode;
+#endif
 }
 
 
